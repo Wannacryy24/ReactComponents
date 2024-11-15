@@ -1,11 +1,17 @@
-import React, { Children } from 'react'
-
-export default function Button({Children,className,disabled}) {
+import React from 'react'
+import './Button.css'
+export default function Button({children,className,disabled,color,onClick,variant, height, width, size}) {
+    const buttonClass = `${className} ${variant?variant:""}`
   return (
     <button
-        className={className}
+        className={buttonClass}
         disabled={disabled}
-        >{Children}
+        onClick={onClick}
+        style={
+            {backgroundColor:color, height:height, width:width, fontSize:size} 
+        }
+        >{children}
+        
     </button>
   )
 }
