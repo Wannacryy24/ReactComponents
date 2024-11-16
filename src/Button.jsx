@@ -1,7 +1,21 @@
 import React from 'react'
 import './Button.css'
-export default function Button({children,className,disabled,color,onClick,variant, height, width, size, onMouseEnter, onMouseLeave,img,src}) {
-   
+export default function Button(props) {
+   const {
+    children,
+    className,
+    disabled=false,
+    color='',
+    onClick,
+    variant='',
+    height='auto',
+    width='auto',
+    size='16px',
+    onMouseEnter,
+    onMouseLeave,
+    img,
+    src
+   } = props;
   const buttonClass = `${className} ${variant?variant:""}`
   
   return (
