@@ -1,7 +1,9 @@
 import React from 'react'
 import './Button.css'
-export default function Button({children,className,disabled,color,onClick,variant, height, width, size}) {
-    const buttonClass = `${className} ${variant?variant:""}`
+export default function Button({children,className,disabled,color,onClick,variant, height, width, size, onMouseEnter, onMouseLeave,img,src}) {
+   
+  const buttonClass = `${className} ${variant?variant:""}`
+  
   return (
     <button
         className={buttonClass}
@@ -10,8 +12,11 @@ export default function Button({children,className,disabled,color,onClick,varian
         style={
             {backgroundColor:color, height:height, width:width, fontSize:size} 
         }
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
         >{children}
-        
     </button>
   )
 }
+//variant ke acc alag jayega
+// type
