@@ -4,12 +4,16 @@ function App() {
   const handleClick = () => {
     console.log('button Clicked');
   }
-  const onMouseEnter = () => {
 
-  }
-  const onMouseLeave = () => {
+  const onMouseEnter = () => {
+    console.log('inside button');
     
   }
+
+  const onMouseLeave = () => {
+    console.log('outside button');
+  }
+
   return (
     <>
       <Button
@@ -17,7 +21,7 @@ function App() {
         // disabled={true}
         variant='outlined'
         onClick={handleClick}
-        color={'green'}
+        color={'primary'}
         height={'50px'}
         width={'200px'}
         size={'30px'}
@@ -29,4 +33,5 @@ function App() {
     </>
   )
 }
-export default App
+
+export default App;

@@ -16,21 +16,29 @@ export default function Button(props) {
     img,
     src
    } = props;
-  const buttonClass = `${className} ${variant?variant:""}`
+
+  const buttonClass = `${className} ${variant?variant:""} ${color ? `btn-${color}` : ''}`;
   
+  const styleProps = {
+    backgroundColor:color,
+    height:height,
+    width:width,
+    fontSize:size
+  };
+
   return (
     <button
         className={buttonClass}
         disabled={disabled}
         onClick={onClick}
-        style={
-            {backgroundColor:color, height:height, width:width, fontSize:size} 
-        }
+        style={styleProps}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
         >{children}
+        {img && <img src={src} alt="icon" style={{ marginRight: '8px', verticalAlign: 'middle' }} />}
     </button>
   )
 }
+
 //variant ke acc alag jayega
 // type
