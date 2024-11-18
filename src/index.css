@@ -22,4 +22,12 @@
     --border-radius-md: 8px;
     --border-radius-lg: 16px;
     --border-color: #ddd;
+
+    /* Modal varian colors */
+    --modal-default-bg: #ffffff;
+    --modal-default-text: #000000;
+    --modal-dark-bg: #333333;
+    --modal-dark-text: #ffffff;
+    --modal-rounded-bg: #ffffff;
+    --modal-rounded-text: #000000;
 }
