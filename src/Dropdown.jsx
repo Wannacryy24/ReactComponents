@@ -1,28 +1,27 @@
-import { useState } from "react"
+import { useState } from "react";
 
-const  dropdownData = ['aaple','banana','orange','litchi']
-
-export function Dropdown() {
-  const [selectedOption, setSelectedOption] = useState('Apple')
+export default function Dropdown({ label, options, defaultOption, onSelect }) {
+  const [selectedOption, setSelectedOption] = useState(defaultOption);
 
   function handleSelect(event) {
-    const value = event.target.value
-    setSelectedOption(value)
-    console.log('Selected:', value)
+    const value = event.target.value;
+    setSelectedOption(value);
+    if (onSelect) {
+      onSelect(value);
+    }
   }
+
   return (
     <div>
-      <h2> Select a Fruit</h2>
-      <label htmlFor="fruit-select">Fruits: </label>
-      <select id="fruit-select" value={selectedOption} onChange={handleSelect}> 
-        {dropdownData.map(function(option, index) {
-          return (
-            <option key={index} value={option}>
-              {option}
-            </option>
-          )
-        })}
+      <h2>{label}</h2>
+      <label htmlFor="dropdown-select">{label}: </label>
+      <select id="dropdown-select" value={selectedOption} onChange={handleSelect}>
+        {options.map((option, index) => (
+          <option key={index} value={option}>
+            {option}
+          </option>
+        ))}
       </select>
     </div>
-  )
+  );
 }
