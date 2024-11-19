@@ -1,65 +1,89 @@
+import { useState , useEffect } from "react";
 export default function Modal({
-    isOpen,
-    onClose,
-    title = "",
-    children,
-    variant = "default",
-    width = "500px",
-    height = "auto",
-    className = "",
-    ...props
-  }) {
+  isOpen,
+  onClose,
+  width = "500px",
+  height = "auto",
+  position = "center",
+  closeOnOverlayClick = true,
+  showCloseIcon = true,
+  style = {},
+  animationDuration = 300,
+  className = "",
+  ...props
+}) {
+  const [visible, setVisible] = useState(isOpen);
 
-    const variantStyles = {
-        default: {
-          backgroundColor: "var(--modal-default-bg)",
-          color: "var(--modal-default-text)",
-          borderRadius: "var(--border-radius-md)",
-        },
-        dark: {
-          backgroundColor: "var(--modal-dark-bg)",
-          color: "var(--modal-dark-text)",
-          borderRadius: "var(--border-radius-md)",
-        },
-        rounded: {
-          backgroundColor: "var(--modal-rounded-bg)",
-          color: "var(--modal-rounded-text)",
-          borderRadius: "var(--border-radius-lg)",
-        },
-      };
-       if (!isOpen) return null;
+  useEffect(()=> {
+    if(isOpen) {
+        setVisible(true);
+    }else{
+      setTimeout(()=> setVisible(false),animationDuration);
+    }
+  }, [isOpen, animationDuration]);
 
-       return(
-        <div
+  if (!visible) return null;
+
+  const positionStyles = {
+    center: { justifyContent: "center", alignItems: "center" },
+    top: { justifyContent: "center", alignItems: "flex-start" },
+    bottom: { justifyContent: "center", alignItems: "flex-end" },
+    left: { justifyContent: "flex-start", alignItems: "center" },
+    right: { justifyContent: "flex-end", alignItems: "center" },
+  };
+
+  return (
+    <div
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        backgroundColor: "rgba(0, 0, 0, 0.5)",
+        display: isOpen ? "flex" : "none",
+        ...positionStyles[position],
+        zIndex: 1000,
+        transition: `opacity ${animationDuration}ms ease-in-out`,
+        opacity: isOpen ? 1 : 0,
+      }}
+      onClick={closeOnOverlayClick ? onClose : null}
+    >
+      <div
+        className={`${className}`}
         style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          backgroundColor: "rgba(0, 0, 0, 0.5)",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          zIndex: 1000,
+          backgroundColor: "#fff",
+          borderRadius: "8px",
+          boxShadow: "0px 4px 6px rgba(0,0,0,0.1)",
+          width: width,
+          height: height,
+          padding: "20px",
+          position: "relative",
+          zIndex: 1001,
+          ...style,
         }}
-        onClick={onClose} 
+        onClick={(e) => e.stopPropagation()}
+        {...props}
       >
-        <div
-          className={`${className}`}
-          style={{
-            ...variantStyles[variant],
-            width: width,
-            height: height,
-            padding: "20px",
-            position: "relative",
-            zIndex: 1001,
-          }}
-          onClick={(e) => e.stopPropagation()} 
-          {...props}
-        >
-          {children}
-        </div>
+        {props.children}
+        {showCloseIcon && (
+          <button
+            onClick={onClose}
+            style={{
+              position: "absolute",
+              top: "10px",
+              right: "10px",
+              border: "none",
+              background: "none",
+              fontSize: "1.5rem",
+              cursor: "pointer",
+              color: "red",
+            }}
+          >
+            X
+          </button>
+        )}
       </div>
-       )
-  }
+    </div>
+  );
+}
