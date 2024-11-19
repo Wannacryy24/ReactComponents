@@ -1,23 +1,24 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
-export default function Dropdown({ label, options, defaultOption, onSelect }) {
+export default function Dropdown({label, options, filteredOptions, defaultOption, onSelect,}) {
   const [selectedOption, setSelectedOption] = useState(defaultOption);
 
-  function handleSelect(event) {
+  const handleOptionChange = (event) => {
     const value = event.target.value;
     setSelectedOption(value);
     if (onSelect) {
       onSelect(value);
     }
-  }
+  };
+
+  const dropdownOptions = filteredOptions || options;
 
   return (
-    <div>
-      <h2>{label}</h2>
-      <label htmlFor="dropdown-select">{label}: </label>
-      <select id="dropdown-select" value={selectedOption} onChange={handleSelect}>
-        {options.map((option, index) => (
-          <option key={index} value={option}>
+    <div className="dropdown-container">
+      <label>{label}</label>
+      <select value={selectedOption} onChange={handleOptionChange} className="select">
+        {dropdownOptions.map((option) => (
+          <option key={option} value={option}>
             {option}
           </option>
         ))}

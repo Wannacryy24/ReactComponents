@@ -1,0 +1,29 @@
+.container{
+  border: 1px solid #ccc;
+  max-width: 400px;
+  padding: 0rem 0.5rem;
+}
+.search-bar-container {
+    display: flex;
+    align-items: center;
+    border: none;
+    outline: none;
+    
+  }
+  
+  .search-bar-input {
+    width: 100%;
+    max-width: 400px;
+    padding: 0.5rem 0rem;
+    font-size: 1rem;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #ccc;
+  }
+  .select{
+    max-width: 400px;
+    padding: 0.5rem 7rem;
+    border: none;
+  }
+
+  
