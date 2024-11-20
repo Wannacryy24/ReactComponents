@@ -5,7 +5,9 @@ function App() {
   return (
     <>
         <Progress
-        value={10}
+          value={20}
+          backgroundColor={'red'}
+          percentage={true}
         />
     </>
   )
