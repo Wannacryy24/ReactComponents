@@ -27,7 +27,7 @@ export default function Tabs({
     <div className={className}>
       <div style={tabContainerStyle} className="tabs-header">
         {tabsData.map((tab, index) => {
-          <div
+         return ( <div
             key={index}
             className={`tab ${activeTab === index ? "active-tab" : ""}`}
             style={{
@@ -35,10 +35,11 @@ export default function Tabs({
               ...(activeTab === index ? activeTabStyle : {}),
               cursor: "pointer",
             }}
-            onClick={handleTabClick(index)}
+            onClick={()=>handleTabClick(index)}
           >
             {tab.title}
-          </div>;
+          </div>
+        )
         })}
       </div>
       <div
