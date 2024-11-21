@@ -9,3 +9,9 @@
 .progress-bar-fill{
     background-color: blue;
 }
+
+svg{
+    display: block;
+    margin: 0 auto;
+}
+
