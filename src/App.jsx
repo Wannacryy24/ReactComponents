@@ -23,17 +23,19 @@ function App() {
     <>
     <div className="container">
       <SearchBar placeholder="Search fruits..." onSearch={handleSearch} />
+      {filteredOptions.length > 0 ? (
       <Dropdown
         label="Select a Fruit :-"
         options={fruits}
-        filteredOptions={filteredOptions}
+        filteredOptions={filteredOptions} 
         defaultOption="Apple"
         onSelect={handleFruitSelect}
         className="dropdown"
       />
-
-    </div>
-     
+      ) : (
+        <div className="no-result">Product not found</div>
+    )}
+    </div>   
       
     </>
   );
