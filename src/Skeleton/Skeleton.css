@@ -1,0 +1,19 @@
+.skeleton{
+    background-color: gray;
+}
+.skeleton-circle {
+    border-radius: 50%;
+}
+
+.skeleton-rect {
+    border-radius: 0;
+}
+
+.skeleton-rounded {
+    border-radius: 8px;
+}
+
+.skeleton-text {
+    height: 20px; 
+    width: 100%;
+}
