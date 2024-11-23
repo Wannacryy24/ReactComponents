@@ -4,38 +4,39 @@ import './Skeleton.css'
 export default function Skeleton(props) {
 
     const {
-        variant,
-        height='100',
-        width='100',
-        className
-    }=props
+        variant='text',
+        height='100px',
+        width='100px',
+        className='',
+        duration='3s'
+    } = props
     
     const styleProp = {
         height:height,
-        width:width
+        width:width,
+        animationDuration: duration
     }
     
-    console.log(height,width);
-    
+
     switch(variant){
         case 'circle' : 
             return (
                 <div 
-                    className={`skeleton skeleton-circle${className}`}
+                    className={`skeleton skeleton-${variant} ${className}`}
                     style={styleProp}>
                 </div>
             )
         case 'rect' : 
             return (
                 <div 
-                    className={`skeleton skeleton-rect ${className}`}
+                    className={`skeleton skeleton-${variant} ${className}`}
                     style={styleProp}>
                 </div>
             )
         case 'rounded' : 
             return(
                 <div 
-                    className={`skeleton skeleton-rounded ${className}`} 
+                    className={`skeleton skeleton-${variant} ${className}`} 
                     style={styleProp}>
                 </div>
             )
@@ -43,7 +44,7 @@ export default function Skeleton(props) {
             default :
             return (
                 <div 
-                    className={`skeleton skeleton-text ${className}`} 
+                    className={`skeleton skeleton-${variant} ${className}`} 
                     style={styleProp}>
                 </div>
             )

@@ -5,9 +5,15 @@ function App() {
   return (
     <>
       <Skeleton
-      variant='rect'
-      height='60px'
-      width='60px'
+        variant='rect'
+        height='300px'
+        width='500px'
+      />
+      <Skeleton
+        variant='rounded'
+        height='100px'
+        width='200px'
+        duration='15s'
       />
     </>
   )
