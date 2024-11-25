@@ -9,33 +9,41 @@ export default function Carousel({
   pauseOnHover = true,
   showIndicators = true,
   showArrows = true,
+  layout = "horizontal",
+  allowFullScreen = false,
+  onSlideChange = () => {}, 
+  onHover = () => {},
+  customControls = null,
 }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(autoPlay);
   const [isHovered, setIsHovered] = useState(false);
 
   function goToPrevious() {
-    setCurrentIndex((prevIndex)=>{
-     if(prevIndex === 0){
-        return loop ?  slides.length - 1 :0;
-     } 
-     return prevIndex -1;
+   if(currentIndex === 0){
+    if(loop){
+        setCurrentIndex(slides.length - 1);
     }
-    );
+   }else{
+    setCurrentIndex((prevIndex)=> prevIndex - 1)
+   }
+   onSlideChange(currentIndex - 1)
   }
 
   function goToNext() {
-    setCurrentIndex((prevIndex)=>{
-        if(prevIndex === slides.length - 1){
-            return loop ? 0 : slides.length - 1;
-         } 
-         return prevIndex + 1;
-    }
-    );
+    if (currentIndex === slides.length - 1) {
+        if (loop) {
+          setCurrentIndex(0);
+        }
+      } else {
+        setCurrentIndex((prevIndex) => prevIndex + 1);
+      }
+      onSlideChange(currentIndex + 1);
   }
 
   function goToSlide(index){
     setCurrentIndex(index);
+    onSlideChange(index);
   }
 
   useEffect(()=> {
@@ -45,64 +53,93 @@ export default function Carousel({
     }
   },[isPlaying, isHovered, interval]);
 
-  useEffect(()=>{
-    function handleKeyDown(event){
-        if(event.key === "ArrowLeft") goToPrevious();
-        if(event.key === "ArrowRight") goToNext();
+
+  function toggleFullScreen(index) {
+    if (allowFullScreen) {
+      const slide = document.querySelector(`.carousel-slide[data-index='${index}']`);
+      if (slide.requestFullscreen) {
+        slide.requestFullscreen();
+      }
     }
-    window.addEventListener("keydown" , handleKeyDown);
-    return()=> window.removeEventListener("keydown", handleKeyDown);
-  },[]);
+  }
 
   return (
-    <div className="carousel"
-    onMouseEnter={() => pauseOnHover && setIsHovered(true)}
-    onMouseLeave={() => pauseOnHover && setIsHovered(false)}
-  >
-    <div className="carousel-slides"
-         style={{ transform: `translateX(-${currentIndex * 100}%)` }}> 
-
-      {slides.map((slide, index)=>(
-        <div key={index} className={`carousel-slide ${index === currentIndex ? "active" : ""}`}
-          style={{
-            backgroundImage: `url(${slide.image})`,
-          }}
-        >
-          <div className="carousel-caption">{slide.caption}</div>
-        </div>
-      ))}
-    </div>
-
-    {showArrows && (
-      <>
-        <button className="carousel-arrow prev" onClick={goToPrevious}>
-          ❮
-        </button>
-        <button className="carousel-arrow next" onClick={goToNext}>
-          ❯
-        </button>
-      </>
-    )}
-
-    {showIndicators && (
-      <div className="carousel-dots">
-        {slides.map((_, index) => (
-          <button
+    <div
+      className={`carousel carousel-${layout}`}
+      onMouseEnter={() => {
+        if (pauseOnHover) setIsHovered(true);
+        onHover(true);
+      }}
+      onMouseLeave={() => {
+        if (pauseOnHover) setIsHovered(false);
+        onHover(false);
+      }}
+    >
+      <div
+        className="carousel-slides"
+        style={{
+          display: layout === "vertical" ? "block" : "flex",
+          transform:
+            layout === "horizontal"
+              ? `translateX(-${currentIndex * 100}%)`
+              : `translateY(-${currentIndex * 100}%)`,
+        }}
+      >
+       {slides.map((slide, index) => (
+          <div
             key={index}
-            className={`carousel-dot ${index === currentIndex ? "active" : ""}`}
-            onClick={() => goToSlide(index)}
+            data-index={index}
+            className="carousel-slide"
+            style={{
+                backgroundImage: slide.image ? `url(${slide.image})` : "none",
+              }}
+            onClick={() => toggleFullScreen(index)}
           >
-            
-          </button>
+            <p>{slide.caption}</p>
+          </div>
         ))}
       </div>
-    )}
 
-    <div className="autoplay-controls">
-      <button onClick={() => setIsPlaying(!isPlaying)}>
-        {isPlaying ? "Pause" : "Play"}
-      </button>
+      {showArrows &&
+        (customControls?.arrows ? (
+          customControls.arrows(goToPrevious, goToNext)
+        ) : (
+          <>
+            <button className="carousel-arrow prev" onClick={goToPrevious}>
+              ❮
+            </button>
+            <button className="carousel-arrow next" onClick={goToNext}>
+              ❯
+            </button>
+          </>
+        ))}
+
+      {showIndicators &&
+        (customControls?.indicators ? (
+          customControls.indicators(currentIndex, goToSlide)
+        ) : (
+          <div className="carousel-dots">
+            {slides.map((_, index) => (
+              <button
+                key={index}
+                className={`carousel-dot ${
+                  index === currentIndex ? "active" : ""
+                }`}
+                onClick={() => goToSlide(index)}
+              ></button>
+            ))}
+          </div>
+        ))}
+
+      <div className="autoplay-controls">
+        {customControls?.autoplay ? (
+          customControls.autoplay(isPlaying, setIsPlaying)
+        ) : (
+          <button onClick={() => setIsPlaying(!isPlaying)}>
+            {isPlaying ? "Pause" : "Play"}
+          </button>
+        )}
+      </div>
     </div>
-  </div>
-);
+  );
 }
