@@ -1,0 +1,28 @@
+.alert{
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    
+}
+
+.warning{
+    background-color: #FDEDED;
+    padding: 6px 16px;
+}
+.info{
+    background-color: #2196f3;
+    color: white;
+    padding: 6px 16px;
+}
+.success{
+    background-color: #4caf50;
+    color: white;
+    padding: 6px 16px;
+}
+.error{
+    background-color: #f44336;
+    color: white;
+    padding: 6px 16px;
+}

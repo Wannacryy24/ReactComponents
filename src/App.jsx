@@ -1,8 +1,22 @@
-function App() {
+import { useState } from "react";
+import Alert from "./Alert/Alert";
 
+function App() {
+  const [showalert , setShowAlert] = useState(false);
+  
   return (
     <>
-      
+           <Alert
+            className='alert'
+            severity='Warning'
+            text='This is a warning message'
+            />
+            <br />
+            <Alert
+            className='alert'
+            severity='info'
+            text='This is a warning message'
+            />  
     </>
   )
 }
