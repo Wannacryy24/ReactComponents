@@ -16,7 +16,7 @@ function App() {
         slides={slides} 
         autoPlay={true} 
         interval={1000} 
-        loop={false} 
+        loop={true} 
         pauseOnHover={true} 
         showIndicators={true} 
         showArrows={true} 

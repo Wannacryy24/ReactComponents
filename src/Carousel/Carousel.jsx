@@ -18,27 +18,21 @@ export default function Carousel({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(autoPlay);
   const [isHovered, setIsHovered] = useState(false);
-
+  
   function goToPrevious() {
-   if(currentIndex === 0){
-    if(loop){
-        setCurrentIndex(slides.length - 1);
-    }
-   }else{
-    setCurrentIndex((prevIndex)=> prevIndex - 1)
-   }
-   onSlideChange(currentIndex - 1)
+    setCurrentIndex((prevIndex)=> {
+      const newIndex = prevIndex === 0 ? (loop ? slides.length - 1 : 0) : prevIndex - 1;
+      onSlideChange(newIndex);
+      return newIndex;
+    });
   }
 
   function goToNext() {
-    if (currentIndex === slides.length - 1) {
-        if (loop) {
-          setCurrentIndex(0);
-        }
-      } else {
-        setCurrentIndex((prevIndex) => prevIndex + 1);
-      }
-      onSlideChange(currentIndex + 1);
+    setCurrentIndex((prevIndex) => {
+      const newIndex = prevIndex === slides.length - 1 ? (loop ? 0 : prevIndex) : prevIndex + 1;
+      onSlideChange(newIndex);
+      return newIndex;
+    });
   }
 
   function goToSlide(index){
@@ -60,6 +54,7 @@ export default function Carousel({
         document.exitFullscreen();
       } else {
         carouselElement.requestFullscreen();
+        setIsHovered(false)
       }
   }
 
