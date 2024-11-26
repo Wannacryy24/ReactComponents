@@ -2,34 +2,33 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import SnackBar from './SnackBar-Component/Snackbar'
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+  const handleShowSnackbar = () => {
+    setIsSnackbarOpen(true);
+  };
+
+  const handleCloseSnackbar = () => {
+    setIsSnackbarOpen(false);
+  };
+ return(
+  <>
+  <button onClick={handleShowSnackbar}>show</button>
+  <SnackBar
+  isOpen={isSnackbarOpen}
+  message="Last warning!!"
+  onClose={handleCloseSnackbar}
+  position={{vertical :"bottom" , horizontal : "center"}}
+  severity="warning"
+
+  />
+  </>
+  
+ )
 }
 
-export default App
+export default App;
