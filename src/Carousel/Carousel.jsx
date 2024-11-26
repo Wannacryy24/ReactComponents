@@ -54,13 +54,13 @@ export default function Carousel({
   },[isPlaying, isHovered, interval]);
 
 
-  function toggleFullScreen(index) {
-    if (allowFullScreen) {
-      const slide = document.querySelector(`.carousel-slide[data-index='${index}']`);
-      if (slide.requestFullscreen) {
-        slide.requestFullscreen();
+  function toggleFullScreen() {
+    const carouselElement = document.querySelector(".carousel");
+    if (document.fullscreenElement) {
+        document.exitFullscreen();
+      } else {
+        carouselElement.requestFullscreen();
       }
-    }
   }
 
   return (
@@ -140,6 +140,17 @@ export default function Carousel({
           </button>
         )}
       </div>
+
+      {allowFullScreen && (
+        <button className="carousel-fullscreen-btn" style={{
+            position:"absolute",
+            bottom:"10px",
+            right:"10px"
+            }} onClick={toggleFullScreen}>
+          &#x26F6;
+        </button>
+      )}
+
     </div>
   );
 }

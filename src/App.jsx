@@ -20,6 +20,7 @@ function App() {
         pauseOnHover={true} 
         showIndicators={true} 
         showArrows={true} 
+        allowFullScreen={true}
       />
     </div>
   );
