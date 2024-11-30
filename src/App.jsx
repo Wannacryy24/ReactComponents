@@ -1,3 +1,5 @@
+import Skeleton from "./Skeleton/Skeleton";
+
 import Progress from "./ProgressBar/Progress";
 import { useState } from "react";
 import Alert from "./Alert/Alert";
@@ -8,6 +10,17 @@ function App() {
   
   return (
     <>
+      <Skeleton
+        variant='rect'
+        height='300px'
+        width='500px'
+      />
+      <Skeleton
+        variant='rounded'
+        height='100px'
+        width='200px'
+        duration='15s'
+      />
         <Progress
           value={100}
           backgroundColor={'red'}

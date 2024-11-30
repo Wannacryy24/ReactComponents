@@ -1,0 +1,38 @@
+.skeleton{
+    background-color: gray;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid red;
+    background-size: 200% 100%;
+    display: inline-block;
+    animation: shimmer 3s infinite linear;
+    animation-iteration-count: infinite;
+    background: linear-gradient(to right, #e6e6e6 5%, #cccccc 25%, #e6e6e6 35%); 
+}
+
+.skeleton-circle {
+    border-radius: 50%;
+}
+
+.skeleton-rect {
+    border-radius: 0;
+}
+
+.skeleton-rounded {
+    border-radius: 8px;
+}
+
+.skeleton-text {
+    height: 20px; 
+    width: 100%;
+}
+
+@keyframes shimmer {
+    from {
+      background-position: -1000px 0;
+    }
+    to {
+      background-position: 1000px 0;
+    }
+  }
+  
