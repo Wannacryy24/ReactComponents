@@ -1,0 +1,17 @@
+.progress-bar{
+    /* background-color: blue; */
+    width: 20px;
+    box-sizing: border-box;
+    border: 1px solid grey;    
+    background-color: #F5F5F5;
+}
+
+.progress-bar-fill{
+    background-color: blue;
+}
+
+svg{
+    display: block;
+    margin: 0 auto;
+}
+

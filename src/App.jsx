@@ -1,3 +1,4 @@
+import Progress from "./ProgressBar/Progress";
 import { useState } from "react";
 import Alert from "./Alert/Alert";
 
@@ -7,6 +8,19 @@ function App() {
   
   return (
     <>
+        <Progress
+          value={100}
+          backgroundColor={'red'}
+          percentage={true}
+          variant={'linear'}
+        />
+         <Progress
+          variant="circular" 
+          value={75} 
+          radius={50}
+          strokeWidth={10} 
+          stroke="green"
+         />
 
            <Alert
             className='alert'
@@ -22,50 +36,4 @@ function App() {
     </>
   )
 }
-
 export default App;
-
-// Environment variables
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{/* <Button
-        className='Button-first'
-        // disabled={true}
-        variant='outlined'
-        onClick={handleClick}
-        color={'primary'}
-        height={'50px'}
-        width={'200px'}
-        size={'30px'}
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
-      >
-        BUTTON
-      </Button> */}
